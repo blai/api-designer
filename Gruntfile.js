@@ -307,6 +307,20 @@ module.exports = function (grunt) {
       saucelabs: {
         configFile: 'scenario/support/saucelabs.conf.js'
       }
+    },
+
+    browserify: {
+      jsTraverse: {
+        options: {
+          browserifyOptions: {
+            standalone: 'jsTraverse.traverse'
+          }
+        },
+
+        files: {
+          '.tmp/js-traverse/js-traverse.js': 'node_modules/traverse/index.js'
+        }
+      }
     }
   });
 
@@ -336,6 +350,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'jshint-once',
     'clean:build',
+    'browserify:jsTraverse',
     'useminPrepare',
     'less-and-autoprefixer',
     'ngtemplates',
